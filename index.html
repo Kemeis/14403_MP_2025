@@ -2,34 +2,60 @@
 <html lang="pl">
 <head>
   <meta charset="UTF-8" />
-  <title>Panorama 360°</title>
+  <title>Virtual Tour - Bathroom</title>
   <style>
-    html, body {
-      margin: 0;
-      height: 100%;
-      overflow: hidden;
-    }
-    #panorama {
-      width: 100%;
-      height: 100%;
-    }
+    html, body { margin: 0; height: 100%; overflow: hidden; }
+    #panorama { width: 100%; height: 100%; }
   </style>
 </head>
 <body>
   <div id="panorama"></div>
 
-  <!-- Użycie starszej wersji panolens + three.js 0.105.2 -->
   <script src="https://cdn.jsdelivr.net/npm/three@0.105.2/build/three.min.js"></script>
   <script src="https://cdn.jsdelivr.net/gh/pchen66/panolens.js@0.10.2/build/panolens.min.js"></script>
 
   <script>
-    const panorama = new PANOLENS.ImagePanorama('obraz.png');
-    const viewer = new PANOLENS.Viewer({
-      container: document.querySelector('#panorama'),
-      autoRotate: true,
-      autoRotateSpeed: 0.3
-    });
-    viewer.add(panorama);
+    const a = new PANOLENS.ImagePanorama('a.png'); // Shower
+    const b = new PANOLENS.ImagePanorama('b.png'); // Middle
+    const c = new PANOLENS.ImagePanorama('c.png'); // Entrance
+
+    const viewer = new PANOLENS.Viewer({ container: document.querySelector('#panorama') });
+
+    // Shower view hotspots
+    const a_to_b = new PANOLENS.Infospot(300, PANOLENS.DataImage.Arrow);
+    a_to_b.position.set(5000, 0, 0);
+    a_to_b.addEventListener('click', () => viewer.setPanorama(b));
+    a.add(a_to_b);
+
+    const a_to_c = new PANOLENS.Infospot(300, PANOLENS.DataImage.Arrow);
+    a_to_c.position.set(-5000, 0, 0);
+    a_to_c.addEventListener('click', () => viewer.setPanorama(c));
+    a.add(a_to_c);
+
+    // Middle view hotspots
+    const b_to_a = new PANOLENS.Infospot(300, PANOLENS.DataImage.Arrow);
+    b_to_a.position.set(-5000, 0, 0);
+    b_to_a.addEventListener('click', () => viewer.setPanorama(a));
+    b.add(b_to_a);
+
+    const b_to_c = new PANOLENS.Infospot(300, PANOLENS.DataImage.Arrow);
+    b_to_c.position.set(5000, 0, 0);
+    b_to_c.addEventListener('click', () => viewer.setPanorama(c));
+    b.add(b_to_c);
+
+    // Entrance view hotspots
+    const c_to_a = new PANOLENS.Infospot(300, PANOLENS.DataImage.Arrow);
+    c_to_a.position.set(5000, 0, 0);
+    c_to_a.addEventListener('click', () => viewer.setPanorama(a));
+    c.add(c_to_a);
+
+    const c_to_b = new PANOLENS.Infospot(300, PANOLENS.DataImage.Arrow);
+    c_to_b.position.set(-5000, 0, 0);
+    c_to_b.addEventListener('click', () => viewer.setPanorama(b));
+    c.add(c_to_b);
+
+    viewer.add(a, b, c);
+    viewer.setPanorama(a); // Start at Shower
   </script>
 </body>
 </html>

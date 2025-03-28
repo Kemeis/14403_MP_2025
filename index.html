@@ -18,12 +18,12 @@
 <body>
   <div id="panorama"></div>
 
-  <!-- WAŻNE: Używamy starszej wersji three.js (kompatybilnej z panolens 0.12.0) -->
-  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/panolens@0.12.0/build/panolens.min.js"></script>
+  <!-- Użycie starszej wersji panolens + three.js 0.105.2 -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.105.2/build/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/pchen66/panolens.js@0.10.2/build/panolens.min.js"></script>
 
   <script>
-    const panorama = new PANOLENS.ImagePanorama('obraz.png'); // <-- tu daj nazwę swojego pliku
+    const panorama = new PANOLENS.ImagePanorama('obraz.png');
     const viewer = new PANOLENS.Viewer({
       container: document.querySelector('#panorama'),
       autoRotate: true,
